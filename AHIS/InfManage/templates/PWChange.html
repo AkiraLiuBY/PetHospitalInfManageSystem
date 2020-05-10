@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+		<title>宠物医院信息管理系统</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+				font-family: "微软雅黑";
+			}
+
+			html,
+			body {
+				min-height: 100vh;
+			}
+
+			body {
+				display: block;
+				width: 100%;
+				height: 100%;
+				background: url(/static/images/login_back.png);
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
+			}
+
+			.d1 {
+				width: 500px;
+				height: 500px;
+				background-color: white;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				-moz-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				-o-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+				border-radius: 8px;
+			}
+			.d2{
+				width: 100%;
+				height: 20%;
+				border-top-right-radius: 8px;
+				border-top-left-radius: 8px;
+				border-bottom: 2px #EEEEEE solid;
+			}
+			.d3{
+				width: 100%;
+				height: 80%;
+				border-bottom-left-radius: 8px;
+				border-bottom-right-radius: 8px;
+			}
+			p{
+				width: 100%;
+				height: 100%;
+				line-height: 70px;
+				text-indent: 2em;
+				font-size: 24px;
+				border-top-right-radius: 8px;
+				border-top-left-radius: 8px;
+			}
+			.ac1,.pasw{
+				width: 400px;
+				height:50px;
+				/* padding-left: 20px; */
+				text-indent: 2em;
+				border-radius: 8px;
+				background-color: #EEEEEE;
+				outline: none;
+			}
+			.ac1{
+				margin-top: 20px;
+			}
+			.pasw{
+				margin-top: 10px;
+			}
+			.login{
+				width: 400px;
+				height: 50px;
+				margin-top: 30px;
+				background-color: rgb(0,132,255);
+				border-radius: 8px;
+				color: white;
+				font-size: 20px;
+			}
+			img{
+				position: relative;
+				margin-left: 300px;
+				margin-top: 10px;
+			}
+			label{
+				display: none;
+			}
+			#id_captcha_1{
+				background-color: rgb(238,238,238);
+				border: none;
+				/* border-bottom: 1px #000000 solid; */
+				height: 50px;
+				width: 300px;
+				outline: none;
+				
+				position: fixed;
+				left: 50%;
+				margin-left: -200px;
+				/* border-top-right-radius: 8px;
+				border-top-left-radius: 8px; */
+				border-radius: 8px;
+				margin-top: 10px;
+				text-indent: 2em;
+			}
+			#id_captcha_1 
+		</style>
+	</head>
+	<body>
+		<div class="d1">
+			<div class="d2">
+				<p><b>密码修改</b></p>
+			</div>
+			<div class="d3">
+				<center>
+					<form action="PWChange.html" method="POST">
+						<input name="ManagerID" type="text" placeholder="账号" class="ac1">
+						<input name="PassWord" type="password" placeholder="原密码" class="ac1">
+						<input name="NewPassWord1" type="password" placeholder="新密码" class="ac1">
+						<input name="NewPassWord2" type="password" placeholder="重新输入" class="ac1">
+						<input type="submit" class="login" value="确   认">
+					</form>
+					
+				</center>
+			</div>
+		</div>
+		{% if messages %}
+			<script>
+				{% for msg in messages %}
+					alert('{{ msg.message }}');
+	   			{% endfor %}
+			</script>
+		{% endif %}
+	</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>宠物医院信息管理系统</title>
+		{% load static %}
+		<link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-3.3.4.css">
+		<link rel="stylesheet" href="{% static 'css/DoctorInfDetail-base.css'%}">
+		<link rel="stylesheet" href="{% static 'css/Index-jquery-kq-nav-left.css'%}">
+		<link rel="stylesheet" href="{% static 'js/jquery.min.js'%}">
+		<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	</head>
+
+	<body>
+		<ul class="nav-left-container">
+			<li>
+				<!-- li的class为active表示点击选中 -->
+				<a href="#">
+					<!-- aria-hidden字符串。可选值为true和false,true表示元素隐藏(不可见)，false表示元素可见。 -->
+					<span class="glyphicon glyphicon-home f12" aria-hidden="true"></span>
+					<span>进货信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+				<ul class="nav-left-container-small">
+					<!-- aria-expanded表示展开状态。默认为undefined, 表示当前展开状态未知。其它可选值：true表示元素是展开的；false表示元素不是展开的。 -->
+					<li>
+						<a class="J_menuItem" href="StockInfQuery.html">进货信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="StockInfAdd.html">进货信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="StockInfVisualization.html">进货信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-calendar f12" aria-hidden="true"></span>
+					<span>药物信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="DrugInfQuery.html">药物信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DrugInfAdd.html">药物信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DrugInfVisualization.html">药物信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-edit f12" aria-hidden="true"></span>
+					<span>医生信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="DoctorInfQuery.html">医生信息查询</a>
+					</li>
+
+					<li>
+						<a class="J_menuItem" href="DoctorInfAdd.html">医生信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DoctorInfVisualization.html">医生信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-calendar f12" aria-hidden="true"></span>
+					<span>病例信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="CaseInfQuery.html">病例信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="CaseInfAdd.html">病例信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="CaseInfVisualization.html">病例信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li><input type="button" value="退 出" onclick="window.location.href='LogIn.html'" style="position: absolute;bottom: 10px;border: none;background: url(../static/images/login_back.png);width: 100%;font-weight: 600;font-size: 14px;" /></li>
+		</ul>
+		<div class="nav-right-out">
+			<div class="nav-right-in" style="overflow: auto;">
+				<table width="75%" border="1" cellpadding="4" cellspacing="1" style="margin:0 auto;text-align: justify;text-justify: inter-ideograph;border-collapse:separate; border-spacing:0px">
+					{% for line in SearchInf %}
+					<tr style="background-image: url(/static/images/login_back.png);">
+						<td width="15%">医生编号</td>
+						<td width="35%" colspan="3">{{line.DoctorID}}</td>
+						<!-- <input type="text" name="" id="" value="" style="width: 100%;height: 98%;"/> -->
+					</tr>
+					<tr>
+						<td width="15%">姓名</td>
+						<td width="35%" colspan="2">{{line.Name}}</td>
+						<td rowspan="5"><img src="{{MEDIA_URL}}{{line.Photo}}" height="200px" width="150px"></td>
+					</tr>
+					<tr>
+						<td width="15%">性别</td>
+						<td width="35%" colspan="2">{{line.Sex}}</td>
+					</tr>
+					<tr>
+						<td width="15%">年龄</td>
+						<td width="35%" colspan="2">{{line.Age}}</td>
+					</tr>
+					<tr>
+						<td width="15%">学历</td>
+						<td width="35%" colspan="2">{{line.Education}}</td>
+					</tr>
+					<tr>
+						<td width="15%">联系方式</td>
+						<td width="35%" colspan="2">{{line.Tel}}</td>
+					</tr>
+					<tr>
+						<td width="15%">职务</td>
+						<td width="35%">{{line.Position}}</td>
+						<td width="15%">工作时间</td>
+						<td width="35%">{{line.WorkTime}}</td>
+					</tr>
+					<tr>
+						<td width="15%">科室</td>
+						<td width="35%">{{line.Office}}</td>
+						<td width="15%">科室位置</td>
+						<td width="35%">{{line.OfficeSite}}</td>
+					</tr>
+					<tr>
+						<td style="height: 110px;">介绍</td>
+						<td colspan="3">{{line.Introduce}}</td>
+					</tr>
+					<tr>
+						<td style="height: 110px;">主要成果</td>
+						<td colspan="3">{{line.Achievements}}</td>
+					</tr>
+					<tr>
+						<td style="height: 110px;">特长</td>
+						<td colspan="3">{{line.Characters}}</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+		<script>
+			$('.nav-left-container').on('click', 'li', function() {
+				$(this).find('.glyphicon-menu-right').removeClass('glyphicon-menu-right').addClass('glyphicon-menu-down');
+				$(this).addClass('active').children('.nav-left-container-small').slideDown()
+
+				$(this).siblings().removeClass('active').children('.nav-left-container-small').slideUp()
+				$(this).siblings().find('.glyphicon-menu-down').removeClass('glyphicon-menu-down').addClass(
+					'glyphicon-menu-right ');
+			})
+		</script>
+		<script>
+			$('#search-in').on('keypress', function(event) {
+				if (event.keyCode == 13) {
+					$('#codeSubmit').trigger('click')
+				}
+			});
+		</script>
+		<!-- 	<script type="text/javascript">
+			function clickMe() {
+						//得到input标签对象
+						var input = document.getElementById("search-in");
+						console.log(input.id) //在控制台打印出inputId
+						console.log(input.type) //text
+						console.log(input.value) //hello
+						alert(input.value);
+		
+			}
+		</script> -->
+	</body>
+
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" /> -->
+		<title>宠物医院信息管理系统</title>
+		{% load static %}
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" type="text/css" href="{% static '/css/CaseInfAdd-base.css' %}" />
+		<link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-3.3.4.css">
+		<link rel="stylesheet" href="{% static '/css/CaseInfAdd-jquery-kq-nav-left.css'%}">
+		<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+	</head>
+	<body>
+		<ul class="nav-left-container">
+			<li>
+				<!-- li的class为active表示点击选中 -->
+				<a href="#">
+					<!-- aria-hidden字符串。可选值为true和false,true表示元素隐藏(不可见)，false表示元素可见。 -->
+					<span class="glyphicon glyphicon-home f12" aria-hidden="true"></span>
+					<span>进货信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+				<ul class="nav-left-container-small">
+					<!-- aria-expanded表示展开状态。默认为undefined, 表示当前展开状态未知。其它可选值：true表示元素是展开的；false表示元素不是展开的。 -->
+					<li>
+						<a class="J_menuItem" href="StockInfQuery.html">进货信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="StockInfAdd.html">进货信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="StockInfVisualization.html">进货信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-calendar f12" aria-hidden="true"></span>
+					<span>药物信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="DrugInfQuery.html">药物信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DrugInfAdd.html">药物信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DrugInfVisualization.html">药物信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-edit f12" aria-hidden="true"></span>
+					<span>医生信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="DoctorInfQuery.html">医生信息查询</a>
+					</li>
+
+					<li>
+						<a class="J_menuItem" href="DoctorInfAdd.html">医生信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DoctorInfVisualization.html">医生信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-calendar f12" aria-hidden="true"></span>
+					<span>病例信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="CaseInfQuery.html">病例信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="CaseInfAdd.html">病例信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="CaseInfVisualization.html">病例信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li><input type="button" value="退 出" onclick="window.location.href='LogIn.html'" style="position: absolute;bottom: 10px;border: none;background: url(../static/images/login_back.png);width: 100%;font-weight: 600;font-size: 14px;" /></li>
+		</ul>
+		<!-- 右侧 -->
+		<div class="nav-right-out">
+			<div class="nav-right-in">
+				<form action="CaseInfEdit.html" method="POST">
+					{% for line in SearchInf %}
+					<div style="width: 100%;height: 22%;display: flex;align-items: center;background-color: white;">
+						<table style="margin:0 auto;text-align: justify;text-justify: inter-ideograph;border-collapse:separate; border-spacing:0px 10px">
+							<tr>
+								<th>病例编号</th>
+								<th><input type="text" name="CaseID" value="{{line.CaseID}}" readonly="readonly" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;color: #999999;"></th>
+								<th style="padding-left: 30px;">宠物主姓名</th>
+								<th><input type="text" name="PetOwnerName" value="{{line.PetOwnerName}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<th style="padding-left: 30px;">联系方式</th>
+								<th><input type="text" name="Tel" value="{{line.Tel}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+							</tr>
+							<tr>
+								<th>医生编号</th>
+								<th><input type="text" name="DoctorID" value="{{line.DoctorID}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<th style="padding-left: 30px;">宠物主性别</th>
+								<th><select name="PetOwnerSex" value="{{line.PetOwnerSex}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;outline:none;border: none;text-indent: 1em;">
+										<option value="男"> 男</option>
+										<option value="女"> 女</option>
+									</select></th>
+								<th style="padding-left: 30px;">邮编</th>
+								<th><input type="text" name="PostCode" value="{{line.PostCode}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<!-- <th style="padding-left: 30px;position: relative;left:-20%;">宠物主性别</th>
+									<th style="position: relative;left:-20%;"><input type="text" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 100px;"></th> -->
+							</tr>
+							<tr>
+								<th>家庭住址</th>
+								<th><input type="text" name="Address" value="{{line.Address}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<th style="padding-left: 30px;">电子邮件</th>
+								<th><input type="text" name="Email" value="{{line.Email}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+							</tr>
+						</table>
+					</div>
+
+					<!-- 中间部分 -->
+
+					<div style="width: 100%;height: 22%;margin-top: 1%;display: flex;align-items: center;background-color: white;">
+						<table style="margin:0 auto;text-align: justify;text-justify: inter-ideograph;border-collapse:separate; border-spacing:0px 10px">
+							<tr>
+								<th>宠物姓名</th>
+								<th><input type="text" name="PetName" value="{{line.PetName}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<th style="padding-left: 30px;">宠物证编号</th>
+								<th><input type="text" name="PetCardID" value="{{line.PetCardID}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<th style="padding-left: 30px;">品种</th>
+								<th><input type="text" name="Breed" value="{{line.Breed}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+							</tr>
+							<tr>
+								<th>宠物性别</th>
+								<th><select name="PetSex" value="{{line.PetOwnerSex}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;outline:none;border: none;text-indent: 1em;">
+										<option value="公">公</option>
+										<option value="母">母</option>
+									</select></th>
+								<th style="padding-left: 30px;">年龄</th>
+								<th><input type="text" name="PetAge" value="{{line.PetAge}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<th style="padding-left: 30px;">体重</th>
+								<th style=""><input type="text" name="PetWeight" value="{{line.PetWeight}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<!-- <th style="padding-left: 30px;position: relative;left:-20%;">宠物主性别</th>
+									<th style="position: relative;left:-20%;"><input type="text" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 100px;"></th> -->
+							</tr>
+							<tr>
+								<th>绝育情况</th>
+								<th><input type="text" name="Sterilization" value="{{line.Sterilization}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<th style="padding-left: 30px;">免疫情况</th>
+								<th><input type="text" name="Immune" value="{{line.Immune}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<th style="padding-left: 30px;">总金额</th>
+								<th><input type="text" name="TotalSum" value="{{line.TotalSum}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+							</tr>
+						</table>
+					</div>
+
+					<!-- 信息部分 -->
+					<div style="width: 100%;margin-top: 1%;display: flex;align-items: center;background-color: white;font-weight: bold;border: 0ch;">
+						<span style="margin-left: 135px;margin-top: 10px;">诊疗信息</span><textarea name="Treatment" style="margin-left: 10px;width:912px;height: 130px;background-color: rgb(245,245,247);outline: none;text-indent: 2em;margin-top: 10px;"
+						 name="">{{line.Treatment}}</textarea>
+					</div>
+					<div style="width: 100%;display: flex;background-color: white;font-weight: bold;">
+						<span style="margin-left: 135px;margin-top: 73px;margin-bottom: 10px;">处方信息</span><textarea name="Prescription"
+						 style="margin-left: 10px;margin-top: 20px;width:912px;height: 130px;background-color: rgb(245,245,247);outline: none;text-indent: 2em;margin-bottom: 10px;"
+						 name="">{{line.Prescription}}</textarea>
+					</div>
+					<div style="width: 100%;background-color: #FFFFFF;height: 120px;">
+						<input type="submit" class="sub1" value="提 交" style="margin:0 auto;width: 300px;height: 40px;background-color: #6AC6E4;cursor: pointer;font-size:13px;font-weight: bold;margin-top: 5px;position: relative;left: 50%;margin-left: -150px;">
+					</div>
+					{% endfor %}
+				</form>
+			</div>
+		</div>
+		<script>
+			$('.nav-left-container').on('click', 'li', function() {
+				$(this).find('.glyphicon-menu-right').removeClass('glyphicon-menu-right').addClass('glyphicon-menu-down');
+				$(this).addClass('active').children('.nav-left-container-small').slideDown()
+
+				$(this).siblings().removeClass('active').children('.nav-left-container-small').slideUp()
+				$(this).siblings().find('.glyphicon-menu-down').removeClass('glyphicon-menu-down').addClass(
+					'glyphicon-menu-right ');
+			})
+		</script>
+		{% if messages %}
+			<script>
+				{% for msg in messages %}
+					alert('{{ msg.message }}');
+	   			{% endfor %}
+			</script>
+		{% endif %}
+	</body>
+</html>

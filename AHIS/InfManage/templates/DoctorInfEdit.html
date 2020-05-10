@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" /> -->
+		<title>宠物医院信息管理系统</title>
+		{% load static %}
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/DoctorInfAdd-base.css'%}" />
+		<link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-3.3.4.css">
+		<link rel="stylesheet" href="{% static 'css/DoctorInfAdd-jquery-kq-nav-left.css'%}">
+		<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="http://i.gtimg.cn/qzone/biz/gdt/lib/jquery/jquery-2.1.4.js?max_age=31536000"></script>
+
+		<script>
+
+			$(function(){  
+		    $('#upLoad').on('change',function(){  
+		        var filePath = $(this).val(),         //获取到input的value，里面是文件的路径  
+		            fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),  
+		            imgBase64 = '',      //存储图片的imgBase64  
+		            fileObj = document.getElementById('upLoad').files[0]; //上传文件的对象,要这样写才行，用jquery写法获取不到对象  
+		              
+		        // 检查是否是图片  
+		        if( !fileFormat.match(/.png|.jpg|.jpeg/) ) {  
+		            alert('上传错误,文件格式必须为：png/jpg/jpeg');  
+		            return;    
+		        }  
+		  
+		        // 调用函数，对图片进行压缩  
+		        compress(fileObj,function(imgBase64){  
+		            imgBase64 = imgBase64;    //存储转换的base64编码  
+		            $('#viewImg').attr('src',imgBase64); //显示预览图片  
+		        });  
+		    });  
+		  
+		     // 不对图片进行压缩，直接转成base64  
+		    function directTurnIntoBase64(fileObj,callback){  
+		        var r = new FileReader();  
+		        // 转成base64  
+		        r.onload = function(){  
+		           //变成字符串  
+		            imgBase64 = r.result;  
+		            console.log(imgBase64);  
+		            callback(imgBase64);  
+		        }  
+		        r.readAsDataURL(fileObj);    //转成Base64格式  
+		    }  
+		  
+		       // 对图片进行压缩  
+		    function compress(fileObj, callback) {   
+		        if ( typeof (FileReader) === 'undefined') {    
+		            console.log("当前浏览器内核不支持base64图标压缩");    
+		            //调用上传方式不压缩    
+		            directTurnIntoBase64(fileObj,callback);  
+		        } else {    
+		            try {      
+		                var reader = new FileReader();    
+		                reader.onload = function (e) {    
+		                    var image = $('<img/>');    
+		                    image.load(function(){    
+		                        square = 100,   //定义画布的大小，也就是图片压缩之后的像素  
+		                        canvas = document.createElement('canvas'),   
+		                        context = canvas.getContext('2d'),  
+		                        imageWidth = 0,    //压缩图片的大小  
+		                        imageHeight = 0,   
+		                        offsetX = 0,   
+		                        offsetY = 0,  
+		                        data = '';   
+		  
+		                        canvas.width = square;    
+		                        canvas.height = square;   
+		                        context.clearRect(0, 0, square, square);     
+		  
+		                        if (this.width > this.height) {    
+		                            imageWidth = Math.round(square * this.width / this.height);    
+		                            imageHeight = square;    
+		                            offsetX = - Math.round((imageWidth - square) / 2);    
+		                        } else {    
+		                            imageHeight = Math.round(square * this.height / this.width);    
+		                            imageWidth = square;    
+		                            offsetY = - Math.round((imageHeight - square) / 2);    
+		                        }    
+		                        context.drawImage(this, offsetX, offsetY, imageWidth, imageHeight);    
+		                        var data = canvas.toDataURL('image/jpeg');    
+		                        //压缩完成执行回调    
+		                         callback(data);    
+		                    });    
+		                    image.attr('src', e.target.result);    
+		                };    
+		                reader.readAsDataURL(fileObj);    
+		            }catch(e){    
+		                console.log("压缩失败!");    
+		                //调用直接上传方式  不压缩   
+		                directTurnIntoBase64(fileObj,callback);   
+		            }    
+		        }  
+		    }  
+		});  
+		  
+		 </script>
+	</head>
+	<body>
+		<ul class="nav-left-container">
+			<li>
+				<!-- li的class为active表示点击选中 -->
+				<a href="#">
+					<!-- aria-hidden字符串。可选值为true和false,true表示元素隐藏(不可见)，false表示元素可见。 -->
+					<span class="glyphicon glyphicon-home f12" aria-hidden="true"></span>
+					<span>进货信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+				<ul class="nav-left-container-small">
+					<!-- aria-expanded表示展开状态。默认为undefined, 表示当前展开状态未知。其它可选值：true表示元素是展开的；false表示元素不是展开的。 -->
+					<li>
+						<a class="J_menuItem" href="StockInfQuery.html">进货信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="StockInfAdd.html">进货信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="StockInfVisualization.html">进货信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-calendar f12" aria-hidden="true"></span>
+					<span>药物信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="DrugInfQuery.html">药物信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DrugInfAdd.html">药物信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DrugInfVisualization.html">药物信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-edit f12" aria-hidden="true"></span>
+					<span>医生信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="DoctorInfQuery.html">医生信息查询</a>
+					</li>
+
+					<li>
+						<a class="J_menuItem" href="DoctorInfAdd.html">医生信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DoctorInfVisualization.html">医生信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-calendar f12" aria-hidden="true"></span>
+					<span>病例信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="CaseInfQuery.html">病例信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="CaseInfAdd.html">病例信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="CaseInfVisualization.html">病例信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li><input type="button" value="退 出" onclick="window.location.href='LogIn.html'" style="position: absolute;bottom: 10px;border: none;background: url(../static/images/login_back.png);width: 100%;font-weight: 600;font-size: 14px;" /></li>
+		</ul>
+		<!-- 右侧 -->
+
+		<div class="nav-right-out" style="font-weight: bold;">
+			<form method="POST" action="DoctorInfEdit.html" style="width: 98%;height: 98%;margin: 0 auto;">
+				{% for line in SearchInf %}
+				<div class="nav-right-in">
+					<div style="width:100%;height: 28%;display: flex;align-items: center;background-color: white;margin: 0 auto;">
+						<table style="margin-left:60px;text-align: justify;text-justify: inter-ideograph;border-collapse:separate; border-spacing:0px 10px">
+							<tr>
+								<th>编号</th>
+								<th><input type="text" name="DoctorID" value="{{line.DoctorID}}" readonly="readonly" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 220px;color: #999999;"></th>
+								<th style="padding-left: 30px;">性别</th>
+								<th><select name="Sex" value="{{line.Sex}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 220px;outline:none;border: none;text-indent: 1em;">
+										<option value="男"> 男</option>
+										<option value="女"> 女</option>
+									</select></th>
+								<th style="padding-left: 30px;">联系方式</th>
+								<th><input type="text" name="Tel" value="{{line.Tel}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 220px;"></th>
+							</tr>
+							<tr>
+								<th>姓名</th>
+								<th><input type="text" name="Name" value="{{line.Name}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 220px;"></th>
+								<th style="padding-left: 30px;">年龄</th>
+								<th><input type="text" name="Age" value="{{line.Age}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 220px;"></th>
+								<th style="padding-left: 30px;">职务</th>
+								<th><input type="text" name="Position" value="{{line.Position}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 220px;"></th>
+							</tr>
+							<tr>
+								<th>科室</th>
+								<th><input type="text" name="Office" value="{{line.OfficeSite}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 220px;"></th>
+								<th style="padding-left: 30px;">科室位置</th>
+								<th><input type="text" name="OfficeSite" value="{{line.OfficeSite}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 220px;"></th>
+								<th style="padding-left: 30px;">学历</th>
+								<th><input type="text" name="Education" value="{{line.Education}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 220px;"></th>
+							</tr>
+							<tr>
+								<th>工作时间</th>
+								<th><input type="text" name="WorkTime" value="{{line.WorkTime}}" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 220px;"</th>
+							</tr>
+						</table>
+						<div id="previewImg" class="fontShow" style="margin-left: 20px;background-color: #f5f5f5; height: 140px;border:2px d0d0d0 solid;width: 100px;float: right;cursor: pointer;display: inline-block;line-height: 110px;vertical-align: middle;line-height: 140px ;">
+							<!-- <span class="placeFont" style="position:fixed;">&nbsp;&nbsp;点击上传照片</span> -->
+							<img  alt="" id="viewImg" src="{{MEDIA_URL}}{{line.Photo}}" style="position:absolute;width: 100px;height:140px;z-index: 2;">
+							<input type="file" name="Photo" id="upLoad" value="{{line.Photo}}" style="display: none;">
+							<!-- <input type="button" id="changeInput" onclick="$("[type=file]").click()" value="选择文件" style="width: 100px;height: 20px;"> -->
+						</div>
+					</div>
+					<div style="width: 100%;height: 20%;display: flex;align-items: center;background-color: white;margin-top:1%;">
+						<!-- <span style="margin-left: 120px;">介绍</span><input type="text" style="margin-left: 10px;width:940px;height: 80%;background-color: rgb(245,245,247);"> -->
+						<span style="margin-left: 70px;">介绍</span><textarea name="Introduce"  style="margin-left: 20px;width:954px;height: 80%;background-color: rgb(245,245,247);">{{line.Introduce}}</textarea>
+					</div>
+					<div style="width: 100%;height: 20%;display: flex;align-items: center;background-color: white;margin-top:1%;">
+						<span style="margin-left: 70px;line-height: 30px;">主要<br>成果</span><textarea name="Achievements" style="margin-left: 20px;width:954px;height: 80%;background-color: rgb(245,245,247);">{{line.Achievements}}</textarea>
+					</div>
+					<div style="width: 100%;height: 20%;display: flex;align-items: center;background-color: white;margin-top:1%;">
+						<span style="margin-left: 70px;">特长</span><textarea name="Characters" style="margin-left: 20px;width:954px;height: 75%;background-color: rgb(245,245,247);">{{line.Characters}}</textarea>
+					</div>
+					<div style="width: 100%;background-color: #FFFFFF;height: 50px;">
+						<input type="submit" class="sub1" value="提 交" style="display: block;margin:0 auto;width: 300px;height: 40px;background-color: #6AC6E4;cursor: pointer;font-size:13px;font-weight: bold;">
+					</div>
+				</div>
+				{% endfor %}
+			</form>
+		</div>
+
+		<!-- 上传图片 -->
+		<script type="text/javascript">
+			const BTN1 = document.getElementById('upLoad');
+			const BTN2 = document.getElementById('previewImg');
+			//给按钮2添加点击事件
+			BTN2.addEventListener('click', () => {
+				// BTN1.onclick(); //按钮2点击后触发按钮1的onclick
+				BTN1.click(); //按钮2点击后触发按钮1的click 效果一样
+			});
+		</script>
+		<script>
+			$('.nav-left-container').on('click', 'li', function() {
+				$(this).find('.glyphicon-menu-right').removeClass('glyphicon-menu-right').addClass('glyphicon-menu-down');
+				$(this).addClass('active').children('.nav-left-container-small').slideDown()
+
+				$(this).siblings().removeClass('active').children('.nav-left-container-small').slideUp()
+				$(this).siblings().find('.glyphicon-menu-down').removeClass('glyphicon-menu-down').addClass(
+					'glyphicon-menu-right ');
+			})
+		</script>
+		{% if messages %}
+			<script>
+				{% for msg in messages %}
+					alert('{{ msg.message }}');
+	   			{% endfor %}
+			</script>
+		{% endif %}
+	</body>
+</html>

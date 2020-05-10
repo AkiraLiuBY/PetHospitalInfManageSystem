@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" /> -->
+		<title>宠物医院信息管理系统</title>
+		{% load static %}
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" type="text/css" href="{% static '/css/DrugInfAdd-base.css'%}" />
+		<link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-3.3.4.css">
+		<link rel="stylesheet" href="{% static '/css/DrugInfAdd-jquery-kq-nav-left.css'%}">
+		<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<style>
+			.sub1:hover {
+				transition: .3s;
+				color: #FF0000;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="nav-left-container">
+			<li>
+				<!-- li的class为active表示点击选中 -->
+				<a href="#">
+					<!-- aria-hidden字符串。可选值为true和false,true表示元素隐藏(不可见)，false表示元素可见。 -->
+					<span class="glyphicon glyphicon-home f12" aria-hidden="true"></span>
+					<span>进货信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+				<ul class="nav-left-container-small">
+					<!-- aria-expanded表示展开状态。默认为undefined, 表示当前展开状态未知。其它可选值：true表示元素是展开的；false表示元素不是展开的。 -->
+					<li>
+						<a class="J_menuItem" href="StockInfQuery.html">进货信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="StockInfAdd.html">进货信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="StockInfVisualization.html">进货信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-calendar f12" aria-hidden="true"></span>
+					<span>药物信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="DrugInfQuery.html">药物信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DrugInfAdd.html">药物信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DrugInfVisualization.html">药物信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-edit f12" aria-hidden="true"></span>
+					<span>医生信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="DoctorInfQuery.html">医生信息查询</a>
+					</li>
+
+					<li>
+						<a class="J_menuItem" href="DoctorInfAdd.html">医生信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="DoctorInfVisualization.html">医生信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-calendar f12" aria-hidden="true"></span>
+					<span>病例信息管理</span>
+					<span class="glyphicon glyphicon-menu-right f12 fr" aria-hidden="true"></span>
+				</a>
+
+				<ul class="nav-left-container-small">
+					<li>
+						<a class="J_menuItem" href="CaseInfQuery.html">病例信息查询</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="CaseInfAdd.html">病例信息添加</a>
+					</li>
+					<li>
+						<a class="J_menuItem" href="CaseInfVisualization.html">病例信息可视化</a>
+					</li>
+				</ul>
+			</li>
+			<li><input type="button" value="退 出" onclick="window.location.href='LogIn.html'" style="position: absolute;bottom: 10px;border: none;background: url(../static/images/login_back.png);width: 100%;font-weight: 600;font-size: 14px;" /></li>
+		</ul>
+		<!-- 右侧 -->
+		<div class="nav-right-out">
+			<div class="nav-right-in">
+				<form action="DrugInfAdd.html" method="POST">
+					<div style="width: 100%;height: 30%;display: flex;align-items: center;background-color: white;">
+						<table style="margin:0 auto;text-align: justify;text-justify: inter-ideograph;border-collapse:separate; border-spacing:0px 10px">
+							<tr>
+								<th>药物编号</th>
+								<th><input type="text" name="DrugID" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 250px;"></th>
+								<th style="padding-left: 30px;">规格</th>
+								<th><input type="text" name="Specs" style="background-color: #f5f5f5;height: 30px;border: 2px d0d0d0 solid;font-size: 13px;width: 300px;"></th>
+							</tr>
+						</table>
+					</div>
+					<!-- 中间部分 -->
+					<div style="width: 100%;background-color: #FFFFFF;display: flex;align-items: center;">
+						<table style="margin:0 auto;display: block;height: 540px;overflow: auto;text-align: justify;text-justify: inter-ideograph;border-collapse:separate; border-spacing:0px 10px;">
+							<tr>
+								<th>成分</th>
+								<th><input type="text" name="Component" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>性状</th>
+								<th><input type="text" name="Character" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>适应症</th>
+								<th><input type="text" name="Indication" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>用法</th>
+								<th><input type="text" name="Usage" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>不良反应</th>
+								<th><input type="text" name="SideEffect" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>禁忌</th>
+								<th><input type="text" name="Taboo" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>注意事项</th>
+								<th><input type="text" name="Note" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>孕妇用药</th>
+								<th><input type="text" name="Gravida" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>儿童用药</th>
+								<th><input type="text" name="ChildDrug" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>老人用药</th>
+								<th><input type="text" name="OlderDrug" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>药物相互作用</th>
+								<th><input type="text" name="DrugInteraction" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>药物过量</th>
+								<th><input type="text" name="DrugOverdose" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>药物毒理</th>
+								<th><input type="text" name="DrugToxicology" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>贮藏</th>
+								<th><input type="text" name="Store" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>包装</th>
+								<th><input type="text" name="Packing" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+							<tr>
+								<th>执行标准</th>
+								<th><input type="text" name="ExecutiveStard" style="margin-left: 15px;background-color: #f5f5f5;height: 50px;border: 2px d0d0d0 solid;font-size: 13px;width: 970px;"></th>
+							</tr>
+						</table>
+					</div>
+					<div style="width: 100%;background-color: #FFFFFF;height: 110px;">
+						<input type="submit" class="sub1" value="提 交" style="margin:0 auto;width: 300px;height: 40px;background-color: #6AC6E4;cursor: pointer;font-size:13px;font-weight: bold;margin-top: 5px;position: relative;left: 50%;margin-left: -150px;">
+					</div>
+				</form>
+			</div>
+		</div>
+		<script>
+			$('.nav-left-container').on('click', 'li', function() {
+				$(this).find('.glyphicon-menu-right').removeClass('glyphicon-menu-right').addClass('glyphicon-menu-down');
+				$(this).addClass('active').children('.nav-left-container-small').slideDown()
+
+				$(this).siblings().removeClass('active').children('.nav-left-container-small').slideUp()
+				$(this).siblings().find('.glyphicon-menu-down').removeClass('glyphicon-menu-down').addClass(
+					'glyphicon-menu-right ');
+			})
+		</script>
+		{% if messages %}
+			<script>
+				{% for msg in messages %}
+					alert('{{ msg.message }}');
+	   			{% endfor %}
+			</script>
+		{% endif %}
+	</body>
+</html>
